@@ -8,8 +8,12 @@ class list{
 	float sum;
 	static int count;
 	bool removed;
+	int n_removed;
 
 public:
+	list(){
+		n_removed = 0;
+	}
 	void getdata();
 	void displaysum();
 	void remove();
@@ -18,9 +22,9 @@ public:
 
 void list::getdata(){
 	for (int i = 0; i < size; ++i) {
-		cout<<"Enter the Item Code : ";
+		cout<<"Enter the Code Of the Item : ";
 		cin>>itemcode[i];
-		cout<<"Enter the Item Price : ";
+		cout<<"Enter the Price Of the item : ";
 		cin>>itemprice[i];
 		count++;
 	}
@@ -30,11 +34,11 @@ void list::displaysum(){
 	for (int i = 0; i < size; ++i) {
 		sum=sum+itemprice[i];
 	}
-	cout<<"The Total Sum of Products is "<<sum<<endl;
+	cout<<" Total Sum of Products is "<<sum<<endl;
 }
 void list::remove(){
 	int itemCode;
-	cout<<"Enter the Item Code You Want to Remove\n";
+	cout<<" Please Enter the Item Code You Want to Remove\n";
 	cin>>itemCode;
 	removed=false;
 	int position;
@@ -45,14 +49,15 @@ void list::remove(){
 		}
 	}
 	if (removed) {
-		cout<<"Succesfully Removed "<<endl;
+		cout<<" Item Succesfully Removed "<<endl;
+		n_removed++;
 		for (int i = position; i < size; ++i) {
 			itemcode[i]=itemcode[i+1];
 			itemprice[i]=itemprice[i+1];
 		}
 	}
 	else {
-		cout<<"The Particular Code is not Found"<<endl;
+		cout<<"The Particular Code is not Found Denied "<<endl;
 	}
 }
 
@@ -60,7 +65,7 @@ void list::displaylist(){
 	cout<<"Item Code\t\t";
 	cout<<"Item Price"<<endl;
 	if(removed){
-		for (int i = 0; i < size-1; ++i) {
+		for (int i = 0; i < size-n_removed; ++i) {
 		cout<<itemcode[i]<<"\t\t\t";
 		cout<<itemprice[i]<<endl;
 		}
@@ -76,11 +81,33 @@ void list::displaylist(){
 int list::count;
 
 int main() {
-	list stock;
-	stock.getdata();
-	stock.displaysum();
-	stock.remove();
-	stock.displaylist();
+	list stock1;
+	int choice,option;
+	
+	do
+	{
+		cout<<"Welcome\n1.Enter Data\n2.Display the total sum\n3.Remove an item\n4.Display List"<<endl;
+		cin>>choice;
+		switch (choice)
+		{
+			case 1:
+				stock1.getdata();
+				break;
+			case 2:
+				stock1.displaysum();
+				break;
+			case 3:
+				stock1.remove();
+				break;
+			case 4:
+				stock1.displaylist();
+				break;
+			default:
+				cout<<"Invalid Choice"<<endl;
+				break;
+	}
+		cout<<"Do you wish to continue or quit\n1.Continue\n2.Quit"<<endl;
+		cin>>option;
+	} while (option==1);
 	return 0;
 }
-
